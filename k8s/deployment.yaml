@@ -20,11 +20,16 @@ spec:
             - containerPort: 8082
               name: http
           env:
-            - name: DATABASE_URL
+            - name: AWS_REGION
               valueFrom:
-                secretKeyRef:
+                configMapKeyRef:
                   name: volunteer-service-secrets
-                  key: DATABASE_URL
+                  key: AWS_REGION
+            - name: AWS_DYNAMODB_TABLE
+              valueFrom:
+                configMapKeyRef:
+                  name: volunteer-service-secrets
+                  key: AWS_DYNAMODB_TABLE
           readinessProbe:
             httpGet:
               path: /health
