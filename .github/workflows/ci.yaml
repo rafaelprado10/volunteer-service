@@ -160,7 +160,7 @@ jobs:
         id: image
         run: |
           IMAGE_TAG="$(echo "${IMAGE_VERSION}" | tr -d '\r\n')"
-          IMAGE_URI="${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
+          IMAGE_URI="451638006344.dkr.ecr.us-east-1.amazonaws.com/volunteer-service:${IMAGE_TAG}"
 
           echo "tag=${IMAGE_TAG}" >> "$GITHUB_OUTPUT"
           echo "uri=${IMAGE_URI}" >> "$GITHUB_OUTPUT"
