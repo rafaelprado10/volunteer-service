@@ -17,7 +17,7 @@ spec:
         - name: volunteer-service
           image: 451638006344.dkr.ecr.us-east-1.amazonaws.com/volunteer-service:v1.0.0
           ports:
-            - containerPort: 8082
+            - containerPort: 8083
               name: http
           env:
             - name: AWS_REGION
@@ -33,7 +33,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /health
-              port: 8082
+              port: 8083
             initialDelaySeconds: 10
             periodSeconds: 5
             timeoutSeconds: 2
@@ -41,7 +41,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /health
-              port: 8082
+              port: 8083
             initialDelaySeconds: 15
             periodSeconds: 10
             timeoutSeconds: 2

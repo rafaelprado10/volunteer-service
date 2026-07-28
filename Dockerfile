@@ -50,7 +50,7 @@ RUN addgroup --system app && adduser --system --ingroup app app && \
 
 USER app
 
-EXPOSE 8003
+EXPOSE 8083
 
 # Ajuste workers conforme CPU/memória (exemplo: 2 workers)
-CMD ["gunicorn", "--bind", "0.0.0.0:8003", "app:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8083", "app:app"]
