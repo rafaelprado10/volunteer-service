@@ -23,12 +23,12 @@ spec:
             - name: AWS_REGION
               valueFrom:
                 configMapKeyRef:
-                  name: volunteer-service-secrets
+                  name: volunteer-service-config
                   key: AWS_REGION
             - name: AWS_DYNAMODB_TABLE
               valueFrom:
                 configMapKeyRef:
-                  name: volunteer-service-secrets
+                  name: volunteer-service-config
                   key: AWS_DYNAMODB_TABLE
           readinessProbe:
             httpGet:
