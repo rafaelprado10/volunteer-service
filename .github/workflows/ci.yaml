@@ -127,7 +127,7 @@ jobs:
     env:
       AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
       AWS_REGION: ${{ secrets.AWS_REGION }}
-      ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+      ECR_REPOSITORY: volunteer-service
       ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
       IMAGE_VERSION: ${{ needs.compute_release_tag.outputs.release_tag }}
     steps:
@@ -160,7 +160,7 @@ jobs:
         id: image
         run: |
           IMAGE_TAG="$(echo "${IMAGE_VERSION}" | tr -d '\r\n')"
-          IMAGE_URI="451638006344.dkr.ecr.us-east-1.amazonaws.com/volunteer-service:${IMAGE_TAG}"
+          IMAGE_URI="${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
 
           echo "tag=${IMAGE_TAG}" >> "$GITHUB_OUTPUT"
           echo "uri=${IMAGE_URI}" >> "$GITHUB_OUTPUT"
@@ -200,7 +200,7 @@ jobs:
         env:
           RELEASE_TAG: ${{ needs.compute_release_tag.outputs.release_tag }}
           ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
-          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+          ECR_REPOSITORY: volunteer-service
         run: |
           echo "Updating manifest image tag to ${RELEASE_TAG}"
           echo "ECR_REGISTRY: ${ECR_REGISTRY}"
@@ -225,7 +225,7 @@ jobs:
             exit 1
           fi
 
-          sed -i -E "s|(image:\\s*${ECR_REGISTRY}/${ECR_REPOSITORY}:).*|\\1${RELEASE_TAG}|g" "${MANIFEST_PATH}"
+          sed -i -E "s|(image:[[:space:]]*${ECR_REGISTRY}/${ECR_REPOSITORY}:).*|\1${RELEASE_TAG}|g" "${MANIFEST_PATH}"
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
