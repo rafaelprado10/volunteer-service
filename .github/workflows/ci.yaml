@@ -202,6 +202,9 @@ jobs:
           ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
         run: |
+          echo "Updating manifest image tag to ${RELEASE_TAG}"
+          echo "ECR_REGISTRY: ${ECR_REGISTRY}"
+          echo "ECR_REPOSITORY: ${ECR_REPOSITORY}"
           MANIFEST_PATH=""
           if [ -f "k8s/deployment.yaml" ]; then
             MANIFEST_PATH="k8s/deployment.yaml"
